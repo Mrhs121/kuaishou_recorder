@@ -118,3 +118,8 @@ uv run python kuaishou_recorder.py https://live.kuaishou.com/u/KPL704668133 --co
 - **后端**：Python + FastAPI + SSE
 - **前端**：React + TypeScript + Ant Design + Vite
 - **录制**：ffmpeg
+
+## 致谢
+
+- [bililive-go](https://github.com/bililive-go/bililive-go) — Web UI 设计参考
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) — 浏览器 Cookie 提取方式参考
