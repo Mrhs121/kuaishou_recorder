@@ -123,6 +123,11 @@ uv run python kuaishou_recorder.py https://live.kuaishou.com/u/KPL704668133 --co
 - **前端**：React + TypeScript + Ant Design + Vite
 - **录制**：ffmpeg
 
+## 致谢
+
+- [bililive-go](https://github.com/bililive-go/bililive-go) - Web UI 设计参考
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - 浏览器 Cookie 提取方式参考
+
 ## 开源协议
 
 本项目采用 [AGPL-3.0](LICENSE) 协议，任何修改或衍生作品必须以相同协议开源。
