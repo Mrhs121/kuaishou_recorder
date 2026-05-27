@@ -28,7 +28,7 @@ COPY kuaishou_recorder.py browser_cookies.py ./
 COPY server/ ./server/
 
 # Copy frontend build output
-COPY --from=frontend-build /app/frontend/dist ./server/static/
+COPY --from=frontend-build /app/server/static ./server/static/
 
 # Create directories for config and recordings
 RUN mkdir -p /recordings /root/.kuaishou_recorder
