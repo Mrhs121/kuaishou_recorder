@@ -96,7 +96,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       dataIndex: 'status',
       key: 'status',
       width: isMobile ? 72 : 100,
-      fixed: isMobile ? ('left' as const) : undefined,
+      fixed: isMobile ? 'left' : undefined,
       render: (status: string) => {
         const cfg = STATUS_CONFIG[status] || STATUS_CONFIG.idle
         return <Tag color={cfg.color}>{cfg.text}</Tag>
@@ -114,7 +114,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       dataIndex: 'url',
       key: 'url',
       ellipsis: true,
-      responsive: ['md'] as const,
+      responsive: ['md'],
       render: (url: string) => (
         <a href={url} target="_blank" rel="noopener noreferrer">
           {url}
@@ -134,7 +134,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       key: 'file_path',
       ellipsis: true,
       width: 250,
-      responsive: ['lg'] as const,
+      responsive: ['lg'],
       render: (p: string | null) => p || '-',
     },
     {
@@ -143,14 +143,14 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       key: 'error_message',
       ellipsis: true,
       width: 200,
-      responsive: ['lg'] as const,
+      responsive: ['lg'],
       render: (e: string | null) => (e ? <Tag color="error">{e}</Tag> : '-'),
     },
     {
       title: '操作',
       key: 'actions',
       width: isMobile ? 120 : 180,
-      fixed: isMobile ? ('right' as const) : undefined,
+      fixed: isMobile ? 'right' : undefined,
       render: (_: unknown, record: RoomStatus) => (
         <Space size={isMobile ? 4 : 8}>
           {record.status === 'recording' || record.status === 'live' ? (
