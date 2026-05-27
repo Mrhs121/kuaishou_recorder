@@ -174,7 +174,10 @@ async def get_kuaishou_stream_data(url: str, proxy_addr: Optional[str] = None, c
         "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
     }
     if cookies:
-        headers["Cookie"] = cookies
+        # 清理换行符和多余空白，确保 cookie 是单行
+        headers["Cookie"] = "; ".join(
+            part.strip() for part in cookies.replace("\n", ";").split(";") if part.strip()
+        )
 
     # 使用同一个 client 完成短链接解析和页面请求，共享 cookies 和连接池
     async with httpx.AsyncClient(proxy=proxy_addr, timeout=20, verify=False, http2=True, follow_redirects=True) as client:
