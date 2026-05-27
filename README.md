@@ -125,7 +125,7 @@ uv run python kuaishou_recorder.py https://live.kuaishou.com/u/KPL704668133 --co
 
 ## 开源协议
 
-本项目采用 [CC BY-NC-SA 4.0](LICENSE) 协议，禁止商业用途。
+本项目采用 [AGPL-3.0](LICENSE) 协议，任何修改或衍生作品必须以相同协议开源。
 
 ## 免责声明
 
