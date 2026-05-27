@@ -11,6 +11,16 @@
 - Web UI 管理界面，支持多直播间同时录制
 - Docker 部署
 
+## 界面预览
+
+**录制管理**
+
+![录制管理](docs/images/room-table.png)
+
+**设置页面**
+
+![设置](docs/images/settings.png)
+
 ## 快速开始
 
 ### CLI 模式
