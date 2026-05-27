@@ -112,3 +112,15 @@ uv run python kuaishou_recorder.py https://live.kuaishou.com/u/KPL704668133 --co
 - **后端**：Python + FastAPI + SSE
 - **前端**：React + TypeScript + Ant Design + Vite
 - **录制**：ffmpeg
+
+## 开源协议
+
+本项目采用 [CC BY-NC-SA 4.0](LICENSE) 协议，禁止商业用途。
+
+## 免责声明
+
+本项目仅供学习和研究使用，不保证功能的完整性、稳定性和安全性。
+
+使用本项目录制直播内容时，请遵守相关法律法规及平台规定，尊重主播的知识产权和隐私权。因使用本项目产生的一切法律后果由使用者自行承担，与项目作者无关。
+
+本项目不隶属于快手科技或其任何关联公司。
