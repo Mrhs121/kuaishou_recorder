@@ -11,6 +11,12 @@
 - Web UI 管理界面，支持多直播间同时录制
 - Docker 部署
 
+## 界面预览
+
+![主页](assets/home.png)
+
+![设置](assets/settings.png)
+
 ## 快速开始
 
 ### CLI 模式
