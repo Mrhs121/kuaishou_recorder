@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Table, Tag, Button, Space, Popconfirm, message } from 'antd'
 import {
   PlayCircleOutlined,
@@ -8,7 +8,7 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons'
 import type { RoomStatus } from '../types'
-import { deleteRoom, startRoom, stopRoom, getRooms } from '../api'
+import { deleteRoom, startRoom, stopRoom } from '../api'
 import AddRoomDialog from './AddRoomDialog'
 
 const QUALITY_MAP: Record<string, string> = {
@@ -28,6 +28,16 @@ const STATUS_CONFIG: Record<string, { color: string; text: string }> = {
   disabled: { color: 'default', text: '已禁用' },
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
+  return isMobile
+}
+
 interface Props {
   rooms: RoomStatus[]
   onRefresh: () => void
@@ -36,6 +46,7 @@ interface Props {
 export default function RoomTable({ rooms, onRefresh }: Props) {
   const [addOpen, setAddOpen] = useState(false)
   const [loadingIds, setLoadingIds] = useState<Set<string>>(new Set())
+  const isMobile = useIsMobile()
 
   const setLoading = (id: string, v: boolean) => {
     setLoadingIds((prev) => {
@@ -84,7 +95,8 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       title: '状态',
       dataIndex: 'status',
       key: 'status',
-      width: 100,
+      width: isMobile ? 72 : 100,
+      fixed: isMobile ? ('left' as const) : undefined,
       render: (status: string) => {
         const cfg = STATUS_CONFIG[status] || STATUS_CONFIG.idle
         return <Tag color={cfg.color}>{cfg.text}</Tag>
@@ -94,7 +106,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       title: '主播',
       dataIndex: 'anchor_name',
       key: 'anchor_name',
-      width: 180,
+      width: isMobile ? 100 : 180,
       render: (name: string) => name || '-',
     },
     {
@@ -102,6 +114,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       dataIndex: 'url',
       key: 'url',
       ellipsis: true,
+      responsive: ['md'] as const,
       render: (url: string) => (
         <a href={url} target="_blank" rel="noopener noreferrer">
           {url}
@@ -112,7 +125,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       title: '画质',
       dataIndex: 'quality',
       key: 'quality',
-      width: 80,
+      width: isMobile ? 60 : 80,
       render: (q: string) => QUALITY_MAP[q] || q,
     },
     {
@@ -121,6 +134,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       key: 'file_path',
       ellipsis: true,
       width: 250,
+      responsive: ['lg'] as const,
       render: (p: string | null) => p || '-',
     },
     {
@@ -129,22 +143,25 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       key: 'error_message',
       ellipsis: true,
       width: 200,
+      responsive: ['lg'] as const,
       render: (e: string | null) => (e ? <Tag color="error">{e}</Tag> : '-'),
     },
     {
       title: '操作',
       key: 'actions',
-      width: 180,
+      width: isMobile ? 120 : 180,
+      fixed: isMobile ? ('right' as const) : undefined,
       render: (_: unknown, record: RoomStatus) => (
-        <Space>
+        <Space size={isMobile ? 4 : 8}>
           {record.status === 'recording' || record.status === 'live' ? (
             <Button
               type="link"
               icon={<PauseCircleOutlined />}
               loading={loadingIds.has(record.id)}
               onClick={() => handleStop(record.id)}
+              size={isMobile ? 'small' : 'middle'}
             >
-              停止
+              {isMobile ? '' : '停止'}
             </Button>
           ) : (
             <Button
@@ -152,13 +169,14 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
               icon={<PlayCircleOutlined />}
               loading={loadingIds.has(record.id)}
               onClick={() => handleStart(record.id)}
+              size={isMobile ? 'small' : 'middle'}
             >
-              启动
+              {isMobile ? '' : '启动'}
             </Button>
           )}
           <Popconfirm title="确定删除该直播间？" onConfirm={() => handleDelete(record.id)}>
-            <Button type="link" danger icon={<DeleteOutlined />}>
-              删除
+            <Button type="link" danger icon={<DeleteOutlined />} size={isMobile ? 'small' : 'middle'}>
+              {isMobile ? '' : '删除'}
             </Button>
           </Popconfirm>
         </Space>
@@ -168,14 +186,14 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
 
   return (
     <>
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
-        <h2 style={{ margin: 0 }}>录制管理</h2>
+      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+        <h2 style={{ margin: 0, fontSize: isMobile ? 16 : undefined }}>录制管理</h2>
         <Space>
-          <Button icon={<ReloadOutlined />} onClick={onRefresh}>
+          <Button icon={<ReloadOutlined />} onClick={onRefresh} size={isMobile ? 'small' : 'middle'}>
             刷新
           </Button>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setAddOpen(true)}>
-            添加直播间
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => setAddOpen(true)} size={isMobile ? 'small' : 'middle'}>
+            添加
           </Button>
         </Space>
       </div>
@@ -184,7 +202,8 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
         columns={columns}
         rowKey="id"
         pagination={false}
-        size="middle"
+        size={isMobile ? 'small' : 'middle'}
+        scroll={isMobile ? { x: 420 } : undefined}
       />
       <AddRoomDialog open={addOpen} onClose={() => setAddOpen(false)} onAdded={onRefresh} />
     </>

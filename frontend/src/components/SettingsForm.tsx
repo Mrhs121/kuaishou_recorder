@@ -31,7 +31,7 @@ export default function SettingsForm() {
   }
 
   return (
-    <Card title="设置" loading={fetching} style={{ maxWidth: 600 }}>
+    <Card title="设置" loading={fetching} style={{ maxWidth: 600, width: '100%' }}>
       <Form form={form} layout="vertical">
         <Form.Item label="录制保存路径" name="save_path">
           <Input placeholder="~/kuaishou_live" />
