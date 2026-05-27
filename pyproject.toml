@@ -1,0 +1,15 @@
+[project]
+name = "kuaishou-recorder"
+version = "0.1.0"
+description = "快手直播间录制工具"
+requires-python = ">=3.10"
+dependencies = [
+    "httpx[http2]>=0.28.1",
+    "pycryptodome>=3.20.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "sse-starlette>=2.0.0",
+]
+
+[project.scripts]
+recorder-web = "server.app:main"

@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/types.ts","./src/usesse.ts","./src/components/addroomdialog.tsx","./src/components/layout.tsx","./src/components/roomtable.tsx","./src/components/settingsform.tsx","./src/pages/homepage.tsx","./src/pages/settingspage.tsx"],"version":"5.9.3"}
