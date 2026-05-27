@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Table, Tag, Button, Space, Popconfirm, message } from 'antd'
+import { Table, Tag, Button, Space, Popconfirm, message, type Breakpoint } from 'antd'
 import {
   PlayCircleOutlined,
   PauseCircleOutlined,
@@ -96,7 +96,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       dataIndex: 'status',
       key: 'status',
       width: isMobile ? 72 : 100,
-      fixed: isMobile ? 'left' : undefined,
+      fixed: isMobile ? ('left' as const) : undefined,
       render: (status: string) => {
         const cfg = STATUS_CONFIG[status] || STATUS_CONFIG.idle
         return <Tag color={cfg.color}>{cfg.text}</Tag>
@@ -114,7 +114,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       dataIndex: 'url',
       key: 'url',
       ellipsis: true,
-      responsive: ['md'],
+      responsive: ['md'] as Breakpoint[],
       render: (url: string) => (
         <a href={url} target="_blank" rel="noopener noreferrer">
           {url}
@@ -134,7 +134,7 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       key: 'file_path',
       ellipsis: true,
       width: 250,
-      responsive: ['lg'],
+      responsive: ['lg'] as Breakpoint[],
       render: (p: string | null) => p || '-',
     },
     {
@@ -143,14 +143,14 @@ export default function RoomTable({ rooms, onRefresh }: Props) {
       key: 'error_message',
       ellipsis: true,
       width: 200,
-      responsive: ['lg'],
+      responsive: ['lg'] as Breakpoint[],
       render: (e: string | null) => (e ? <Tag color="error">{e}</Tag> : '-'),
     },
     {
       title: '操作',
       key: 'actions',
       width: isMobile ? 120 : 180,
-      fixed: isMobile ? 'right' : undefined,
+      fixed: isMobile ? ('right' as const) : undefined,
       render: (_: unknown, record: RoomStatus) => (
         <Space size={isMobile ? 4 : 8}>
           {record.status === 'recording' || record.status === 'live' ? (
