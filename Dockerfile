@@ -10,6 +10,10 @@ RUN npm run build
 # ── Stage 2: Python runtime ───────────────────────────────────────────────────
 FROM python:3.12-slim
 
+# Clear proxy inherited from Docker Desktop build environment
+ENV HTTP_PROXY="" HTTPS_PROXY="" http_proxy="" https_proxy="" \
+    ALL_PROXY="" all_proxy="" NO_PROXY="*"
+
 # ffmpeg for recording
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg && \
     rm -rf /var/lib/apt/lists/*
