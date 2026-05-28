@@ -206,12 +206,12 @@ async def get_kuaishou_stream_data(url: str, proxy_addr: Optional[str] = None, c
             result = _extract_stream_from_play_list(state)
             if result.get("rate_limited"):
                 if attempt < max_retries - 1:
-                    wait = (attempt + 1) * 5
+                    wait = (attempt + 1) * 30
                     print(f"[信息] 被限流, {wait}秒后重试 ({attempt + 1}/{max_retries})...")
                     await asyncio.sleep(wait)
                     continue
                 else:
-                    print("[错误] 多次重试仍被限流, 请稍后再试或添加 cookie")
+                    print("[错误] 多次重试仍被限流, 请配置代理或更换 IP")
                     return {"is_live": False}
 
             # 如果 playList 没数据，尝试旧版解析

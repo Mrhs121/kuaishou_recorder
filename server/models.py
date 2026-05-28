@@ -54,7 +54,7 @@ class Settings(BaseModel):
     browser_for_cookies: str = "chrome"
     cookies: str = ""
     proxy: str = ""
-    poll_interval: int = 60
+    poll_interval: int = 120
 
 
 class RoomsConfig(BaseModel):
